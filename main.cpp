@@ -6,20 +6,21 @@
 #include <emscripten.h>
 #endif
 
-const static char* scApp_name = "A Normal Day For Me";
-const static char* scApp_version = "0.1";
-const static char* scApp_identifier = "nl.hellscodebase.a-normal-day-for-me";
+#define FPS 0 // 0 means that it runs at the browser refresh rate
+#define APP_NAME "A Normal Day For Me"
+#define APP_VERSION "0.1"
+#define APP_IDENTIFIER "nl.hellscodebase.a-normal-day-for-me"
 
-static SDL_Window* sWindow = NULL;
-static SDL_Renderer* sRenderer = NULL;
+static SDL_Window* spWindow = NULL;
+static SDL_Renderer* spRenderer = NULL;
 
 void initialize_game(void) {
-    if (!SDL_SetAppMetadata(scApp_name, scApp_version, scApp_identifier)) {
+    if (!SDL_SetAppMetadata(APP_NAME, APP_VERSION, APP_IDENTIFIER)) {
 		SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Encountered error when setting app metadata: %s", SDL_GetError());
 		exit(1);
     }
 #ifdef __EMSCRIPTEN__
-    emscripten_set_window_title(scApp_name);
+    emscripten_set_window_title(APP_NAME);
 #endif
 
     if (!SDL_Init(SDL_INIT_VIDEO)) {
@@ -50,23 +51,21 @@ void initialize_game(void) {
 static void mainloop(void) {
     // We check if we have a quit event and exit the game
     if (SDL_HasEvent(SDL_EVENT_QUIT)) {
-    #ifdef __EMSCRIPTEN__
+#ifdef __EMSCRIPTEN__
 		emscripten_cancel_main_loop();
-    #else
+#else
 		exit(0);
-    #endif
+#endif
     }
 
     // true game logic
 }
 
 int main(int argc, char** argv) {
-    int fps = 0;
-
     initialize_game();
 
 #ifdef __EMSCRIPTEN__
-    emscripten_set_main_loop(mainloop, fps, true);
+    emscripten_set_main_loop(mainloop, FPS, true);
 #else
     for (;;) { mainloop(); }
 #endif
