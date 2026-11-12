@@ -51,11 +51,11 @@ void initialize_game(void) {
 static void mainloop(void) {
     // We check if we have a quit event and exit the game
     if (SDL_HasEvent(SDL_EVENT_QUIT)) {
-    #ifdef __EMSCRIPTEN__
+#ifdef __EMSCRIPTEN__
 		emscripten_cancel_main_loop();
-    #else
+#else
 		exit(0);
-    #endif
+#endif
     }
 
     // true game logic
