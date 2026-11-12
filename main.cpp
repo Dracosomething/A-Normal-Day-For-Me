@@ -7,21 +7,20 @@
 #endif
 
 #define FPS 0 // 0 means that it runs at the browser refresh rate
-
-const static char* cspApp_name = "A Normal Day For Me";
-const static char* cspApp_version = "0.1";
-const static char* cspApp_identifier = "nl.hellscodebase.a-normal-day-for-me";
+#define APP_NAME "A Normal Day For Me"
+#define APP_VERSION "0.1"
+#define APP_IDENTIFIER "nl.hellscodebase.a-normal-day-for-me"
 
 static SDL_Window* spWindow = NULL;
 static SDL_Renderer* spRenderer = NULL;
 
 void initialize_game(void) {
-    if (!SDL_SetAppMetadata(scApp_name, scApp_version, scApp_identifier)) {
+    if (!SDL_SetAppMetadata(APP_NAME, APP_VERSION, APP_IDENTIFIER)) {
 		SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Encountered error when setting app metadata: %s", SDL_GetError());
 		exit(1);
     }
 #ifdef __EMSCRIPTEN__
-    emscripten_set_window_title(scApp_name);
+    emscripten_set_window_title(APP_NAME);
 #endif
 
     if (!SDL_Init(SDL_INIT_VIDEO)) {
