@@ -18,23 +18,23 @@ void initialize_game(void) {
 	SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Encountered error when setting app metadata: %s", SDL_GetError());
 	exit(1);
     }
-    #ifdef __EMSCRIPTEN__
+#ifdef __EMSCRIPTEN__
     emscripten_set_window_title(scApp_name);
-    #endif
+#endif
 
     if (!SDL_Init(SDL_INIT_VIDEO)) {
 	SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Encountered error when initializing video: %s", SDL_GetError());
 	exit(1);
     }
 
-    #ifdef __EMSCRIPTEN__
+#ifdef __EMSCRIPTEN__
     int width;
     int height;
     emscripten_get_screen_size(&width, &height);
-    #else
+#else
     int width = 1920;
     int height = 1080;
-    #endif
+#endif
 
     if (!SDL_CreateWindowAndRenderer(scApp_name, width, height, SDL_WINDOW_FULLSCREEN, &sWindow, &sRenderer)) {
 	SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Encountered error when creating window/renderer: %s", SDL_GetError());
@@ -50,27 +50,26 @@ void initialize_game(void) {
 static void mainloop(void) {
     // We check if we have a quit event and exit the game
     if (SDL_HasEvent(SDL_EVENT_QUIT)) {
-	#ifdef __EMSCRIPTEN__
+    #ifdef __EMSCRIPTEN__
 	emscripten_cancel_main_loop();
-	#else
+    #else
 	exit(0);
-	#endif
+    #endif
     }
 
     // true game logic
 }
 
 int main(int argc, char** argv) {
-    printf("Hello, World!\n");
     int fps = 0;
 
     initialize_game();
 
-    #ifdef __EMSCRIPTEN__
+#ifdef __EMSCRIPTEN__
     emscripten_set_main_loop(mainloop, fps, true);
-    #else
+#else
     for (;;) { mainloop(); }
-    #endif
+#endif
 
     return 0;
 }
