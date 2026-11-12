@@ -15,16 +15,16 @@ static SDL_Renderer* sRenderer = NULL;
 
 void initialize_game(void) {
     if (!SDL_SetAppMetadata(scApp_name, scApp_version, scApp_identifier)) {
-	SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Encountered error when setting app metadata: %s", SDL_GetError());
-	exit(1);
+		SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Encountered error when setting app metadata: %s", SDL_GetError());
+		exit(1);
     }
 #ifdef __EMSCRIPTEN__
     emscripten_set_window_title(scApp_name);
 #endif
 
     if (!SDL_Init(SDL_INIT_VIDEO)) {
-	SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Encountered error when initializing video: %s", SDL_GetError());
-	exit(1);
+		SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Encountered error when initializing video: %s", SDL_GetError());
+		exit(1);
     }
 
 #ifdef __EMSCRIPTEN__
@@ -37,13 +37,13 @@ void initialize_game(void) {
 #endif
 
     if (!SDL_CreateWindowAndRenderer(scApp_name, width, height, SDL_WINDOW_FULLSCREEN, &sWindow, &sRenderer)) {
-	SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Encountered error when creating window/renderer: %s", SDL_GetError());
-	exit(1);
+		SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Encountered error when creating window/renderer: %s", SDL_GetError());
+		exit(1);
     }
 
     if (!SDL_SetRenderLogicalPresentation(sRenderer, width, height, SDL_LOGICAL_PRESENTATION_LETTERBOX)) {
-	SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Encountered error when settimg renderer logical presentation: %s", SDL_GetError());
-	exit(1);
+		SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Encountered error when settimg renderer logical presentation: %s", SDL_GetError());
+		exit(1);
     }
 }
 
@@ -51,9 +51,9 @@ static void mainloop(void) {
     // We check if we have a quit event and exit the game
     if (SDL_HasEvent(SDL_EVENT_QUIT)) {
     #ifdef __EMSCRIPTEN__
-	emscripten_cancel_main_loop();
+		emscripten_cancel_main_loop();
     #else
-	exit(0);
+		exit(0);
     #endif
     }
 
