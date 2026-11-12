@@ -6,12 +6,14 @@
 #include <emscripten.h>
 #endif
 
-const static char* scApp_name = "A Normal Day For Me";
-const static char* scApp_version = "0.1";
-const static char* scApp_identifier = "nl.hellscodebase.a-normal-day-for-me";
+#define FPS 0 // 0 means that it runs at the browser refresh rate
 
-static SDL_Window* sWindow = NULL;
-static SDL_Renderer* sRenderer = NULL;
+const static char* cspApp_name = "A Normal Day For Me";
+const static char* cspApp_version = "0.1";
+const static char* cspApp_identifier = "nl.hellscodebase.a-normal-day-for-me";
+
+static SDL_Window* spWindow = NULL;
+static SDL_Renderer* spRenderer = NULL;
 
 void initialize_game(void) {
     if (!SDL_SetAppMetadata(scApp_name, scApp_version, scApp_identifier)) {
@@ -61,12 +63,10 @@ static void mainloop(void) {
 }
 
 int main(int argc, char** argv) {
-    int fps = 0;
-
     initialize_game();
 
 #ifdef __EMSCRIPTEN__
-    emscripten_set_main_loop(mainloop, fps, true);
+    emscripten_set_main_loop(mainloop, FPS, true);
 #else
     for (;;) { mainloop(); }
 #endif
