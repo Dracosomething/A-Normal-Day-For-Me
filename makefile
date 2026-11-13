@@ -1,10 +1,10 @@
 # Add path to link with SDL3 when compiling for windows
 
-build-dir: ; mkdir ./build/
-	 mkdir ./build/web/
-	 mkdir ./build/dev/
-	 mkdir ./build/linux/
-	 mkdir ./build/windows/
+build-dir: ; mkdir -p ./build/
+	 mkdir -p ./build/web/
+	 mkdir -p ./build/dev/
+	 mkdir -p ./build/linux/
+	 mkdir -p ./build/windows/
 
 test: build-dir ; em++ -std=c++26 main.cpp -o ./build/dev/out.html -Wall -Wextra -sUSE_SDL=3
 
