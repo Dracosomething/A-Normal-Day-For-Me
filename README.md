@@ -6,7 +6,7 @@
 		- [Linux](#build.tools.linux)
 		- [Web](#build.tools.web)
 	- [Make](#build.make)
-2. (Testing)[#test]
+2. [Testing](#test)
 
 <h2 id="build">Build</h2>
 Building the project can be done in multiple ways.
